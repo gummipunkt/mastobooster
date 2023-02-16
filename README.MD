@@ -11,7 +11,7 @@ Boost your favorit hashtag on Mastodon.
     2. cd into folder
     3. 'npm init es6 --yes'
 3. Install npm packages
-    1. npm install masto dotenv fs node-cron
+    1. npm install masto dotenv fs
 4. Edit .env
     1. vim .env
 5. Start
