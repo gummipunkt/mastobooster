@@ -20,10 +20,9 @@ Boost your favorit hashtag on Mastodon.
 If you want, you can use PM2 to run index.js forever
 
 ## Todo
-- check if id is already in json file and don't push it again
 - check how many toot_ids are in the json file and delete the oldest ones
-- set maximum number of toot_ids in json file
 - support multiple hashtags
+- add website to link toot_ids and urls e.g.
 
 ## License
 EUPL 1.2 (European Union Public License 1.2)
