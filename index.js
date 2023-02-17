@@ -23,6 +23,8 @@ const hashtag = process.env.HASHTAG;
 let jsonData = [],
 		obj;
 
+// FIXME: this is crap, but it works for now.
+// initial push to array to prevent crashes
 function initialPush() {
     obj = {
         "tootID": "0",
@@ -31,11 +33,17 @@ function initialPush() {
     jsonData.push(obj);
 }
 
+
+// FIXME: this is crap, but it works for now.
+// start initial push
 initialPush();
 
+
+// start boosting
 function startBoosting() {
     // Search for Hashtag Function with a Promise
     const search = new Promise((resolve, reject) => {
+        // call hashtags from mastodon instance
         const promiseReceiveHashtag = masto.v1.timelines.listHashtag(hashtag);
         if (promiseReceiveHashtag) {
             resolve(promiseReceiveHashtag);
@@ -46,47 +54,61 @@ function startBoosting() {
     });
 
     // Start Promise Receiving Toots
-
     search.then((promiseReceiveHashtag) => {
+        // loop through all received toots with given hashtag
         for (let i = 0; i < promiseReceiveHashtag.length; i++) {     
             //create tootID and id for json
             let tootID = promiseReceiveHashtag[i].id;
+            // create a JSON object
             obj = {};
             obj['tootID'] = tootID;
             obj['boosted'] = false;
-            //console.log("jsonDataParse[1].tootID: " + jsonData[i].tootID);
-            //console.log("tootID: " + tootID);
+
+            // FIXME: this is crap, but it works for now.
+            // remove initialPush() from array if there is more that single entry in array
             if (jsonData.length > 1 && jsonData[i].tootID == 0) {
                 jsonData.splice(0, 1);
-                //console.log("Toot 0 removed.");
             }
-
-            //FIXME: We need to find a way to check if the tootID is already in the array. Current state: everything is fine,
-            // but when a new toot is added, it will crashes because tootid and jsondata.tootid doesn't match anymore. :-/
-            //readtootsJS(); here perhaps?
             
-            //if (jsonData.find(record => record.tootID === tootID) === true) {
-            if (jsonData[i].tootID == tootID) {
-            console.log("Toot already in array: " + tootID);
+            // check if tootID is already in array
+            if (jsonData.find(record => record.tootID === tootID)) {
+                // uncomment for debugging
+                //console.log("Toot already in array: " + tootID + " match with " + jsonData[i].tootID);
             } else {
-            console.log("Toot not in array: " + tootID);
-            // add object to array
-            jsonData.push(obj);
-            }            
+                // if not, add push object to array
+                console.log("Toot not in array: " + tootID);
+                // add object to array
+                jsonData.push(obj);
+            }       
         }
+        // check if we want to boost toots in array
     }).then((boost) => {
+        // loop through all toots in array
         for (let i = 0; i < jsonData.length; i++) {
+            // check if toot is already boosted
             if (jsonData[i].boosted == false) {
+            // boost toot if not already boosted
             masto.v1.statuses.reblog(jsonData[i].tootID);
+            // set boosted to true to prevent boosting again
             jsonData[i].boosted = true;
-            console.log("Boosted: " + jsonData[i].tootID + " - New State: " + jsonData[i].boosted);
+            console.log("Boosted: " + jsonData[i].tootID 
+            // uncomment following line for debugging
+            //+ " - New State: " + jsonData[i].boosted
+            );
             } else {
-                console.log("Already boosted: " + jsonData[i].tootID + " - Current State: " + jsonData[i].boosted);
+                // if already boosted, log it and do nothing
+                console.log("Already boosted: " + jsonData[i].tootID 
+                // uncomment following line for debugging
+                //+ " - Current State: " + jsonData[i].boosted
+                );
             }
         }
-    })        
+    }).finally(() => {
+        console.log("Search finished. Everything is boosted. Start again in 20 seconds. Happy tooting.");
+    });
 };
 
+// write toots to json file
 function writeTootsJS(){
     const promiseWriteFile = new Promise((resolve, reject) => {
         fs.writeFile(filepathenv, JSON.stringify(jsonData), {flags:'a'}, function(err, jsonData){
@@ -101,6 +123,7 @@ function writeTootsJS(){
     }).catch(err => console.log(err)); 
 }
 
+// read toots from json file
 function readTootsJS(){
     const promiseReceiveFile = new Promise((resolve, reject) => {
         fs.readFile(filepathenv, 'utf8', function(err, readTootFile){
@@ -111,14 +134,17 @@ function readTootsJS(){
             }
         })
     });
+
     // Start Promise Receiving Toots
     promiseReceiveFile.then((readTootFile) => {
         console.log("File read success.");
     })
 };
 
+// start script loop
 console.log("Start script in 20s.");
-function doStuff() {
+// call function boosting with all the stuff
+function boosting() {
 	console.log("Start searching for new toots.");
 	console.log(" - - - - - - - - ");
 
@@ -126,12 +152,12 @@ function doStuff() {
 	startBoosting();
     writeTootsJS();
     readTootsJS();
-	console.log("Search finished. Everything is boosted. Start again in 60 seconds. Happy tooting.");
   };
 
-  
+// set interval to run script every 20 seconds
 function run() {
-	setInterval(doStuff, 20000);
+	setInterval(boosting, 20000);
 };
   
+// start the fun
 run();
