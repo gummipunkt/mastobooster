@@ -1,6 +1,6 @@
 # Mastobooster
 
-Boost your favorit hashtag on Mastodon.
+Boost your favorite hashtag on Mastodon.
 
 ## Installation
 1. Install NodeJS and npm
