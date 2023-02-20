@@ -9,15 +9,19 @@ fetch("hashtag.json")
         placeholderHashtag.innerHTML = `<h1>Hashtag: #${hashtags[0].hashtag}</h1>`;
     }
 );
-
+function lustig(){
 fetch("toots.json")
     .then(function(response){
         return response.json();
     })
     .then(function(toots){
+        toots.sort(function(a, b) {
+            return b.tootID - a.tootID;
+        });
         let placeholder = document.querySelector("#data-output");
         let out = "";
-        for(let toot of toots){
+        
+        toots.forEach((toot) => {
             if (toot.boosted === true) {
                 x = "Yes";
             } else {
@@ -29,10 +33,14 @@ fetch("toots.json")
                 <td>${toot.username}</td>
                 <td>${x}</td>
             </tr>`;
-        }
+            });
         placeholder.innerHTML = out;
     })
     .catch(function(error){
         console.log(error);
     }
 );
+};
+setInterval(function() {
+    lustig();
+    }, 2000);
