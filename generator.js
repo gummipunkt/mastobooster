@@ -103,10 +103,10 @@ function startBoosting() {
                 // uncomment for debugging
                 //console.log("Toot already in array: " + tootID + " match with " + jsonData[i].tootID);
             } else {
-                // if not, add push object to array
+                // if not, add unshift object to array
                 console.log("Toot not in array: " + tootID);
                 // add object to array
-                jsonData.push(obj);
+                jsonData.unshift(obj);
             }       
         }
         // check if we want to boost toots in array
@@ -139,7 +139,7 @@ function startBoosting() {
 // write toots to json file
 function writeTootsJS(){
     const promiseWriteFile = new Promise((resolve, reject) => {
-        fs.writeFile(filepathenv, JSON.stringify(jsonData), {flags:'a'}, function(err, jsonData){
+        fs.writeFile(filepathenv, JSON.stringify(jsonData), {flags:'w+'}, function(err, jsonData){
             if (err ) {
                 console.log('Error writing file', err)
             } else {
@@ -150,7 +150,7 @@ function writeTootsJS(){
         });
     }).catch(err => console.log(err)); 
 }
-/*
+
 // read toots from json file
 function readTootsJS(){
     const promiseReceiveFile = new Promise((resolve, reject) => {
@@ -168,7 +168,7 @@ function readTootsJS(){
         console.log("File read success.");
     })
 };
-*/
+
 
 // start script loop
 console.log("Start script in 20s.");
@@ -181,7 +181,7 @@ function boosting() {
 	startBoosting();
     writeTootsJS();
     writeHashtagJS();
-    //readTootsJS();
+    readTootsJS();
   };
 
 // set interval to run script every 20 seconds
