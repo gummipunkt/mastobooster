@@ -1,5 +1,7 @@
 # Mastobooster
 
+![mastobooster](https://user-images.githubusercontent.com/6688679/220034174-c06cca90-2838-460f-9d75-96a76f5e1fcb.png)
+
 Boost your favorite hashtag on Mastodon.
 
 ## Installation
@@ -22,7 +24,6 @@ If you want, you can use PM2 to run index.js forever
 ## Todo
 - check how many toot_ids are in the json file and delete the oldest ones
 - support multiple hashtags
-- add website to link toot_ids and urls e.g.
 
 ## License
 EUPL 1.2 (European Union Public License 1.2)
