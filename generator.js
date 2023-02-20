@@ -94,8 +94,11 @@ function startBoosting() {
 
             // FIXME: this is crap, but it works for now.
             // remove initialPush() from array if there is more that single entry in array
-            if (jsonData.length > 1 && jsonData[i].tootID == 0) {
-                jsonData.splice(0, 1);
+            if (jsonData.length > 1 && jsonData.find(record => record.tootID === "0")) {
+                let j = jsonData.findIndex(record => record.tootID === "0");
+                jsonData.splice(j, 1);
+                // uncomment for debugging
+                //console.log("Toot already in array: " + tootID + " match with " + jsonData[i].tootID);
             }
             
             // check if tootID is already in array
@@ -103,7 +106,7 @@ function startBoosting() {
                 // uncomment for debugging
                 //console.log("Toot already in array: " + tootID + " match with " + jsonData[i].tootID);
             } else {
-                // if not, add unshift object to array
+                // if not, add push object to array
                 console.log("Toot not in array: " + tootID);
                 // add object to array
                 jsonData.unshift(obj);
