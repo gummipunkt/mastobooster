@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Mastobooster</title>
+</head>
+<body>
+    <div class="container">
+      <div>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="https://masto.wltr.pw">
+                <img src="mastobooster.png" height="28">
+              </a>
+          
+              <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+          
+            <div id="navbarBasicExample" class="navbar-menu">
+              <div class="navbar-start">
+                <a class="navbar-item">
+                  Home
+                </a>
+              </div>
+            </div>
+          
+              <div class="navbar-end">
+              </div>
+            </div>
+          </nav>
+      </div>
+    </div>
+    
+      <div class="container center">
+        <div>
+            <div class="content has-text-centered">
+            <h1 id="hashtag-output" class="title"></h1>
+            </div>
+            <table class="table is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>TootID</th>
+                        <th>Username</th>
+                        <th>Boosted</th>
+                    </tr>
+                </thead>
+                <tbody id="data-output">
+                </tbody>
+            </table>
+            <footer class="footer">
+              <div class="container">
+                <div class="content has-text-centered">
+                  <p>
+                    <strong>Mastobooser</strong> by <a href="http://github.com/gummipunkt/mastobooster">gummipunkt</a>. The source code is licensed under
+                    <a href="https://github.com/gummipunkt/mastobooster/blob/main/LICENSE.MD">European Union Public License 1.2</a>.
+                  </p>
+                  <p>
+                    <a class="icon" href="http://github.com/gummipunkt/mastobooster">
+                      <i class="fa fa-github"></i>
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </footer>
+        </div>
+      </div>
+    
+
+
+
+    <script src="toWebsite.js" type="module"> </script>
+</body>
+</html>
