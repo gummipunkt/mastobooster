@@ -1,35 +1,57 @@
 /* import modules */
 // Mastodon
-import { login } from "masto";
+import { login } from 'masto';
 // ENV
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 // file system for json
-import fs, { write } from "fs";
+import fs, { write } from 'fs';
 
 // read .env file
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: './.env' });
 const filepathenv = process.env.FILE;
+
+const filepathhashtagenv = process.env.FILEHASHTAG;
+
 
 // Mastodon Login
 const masto = await login({
- url: process.env.URL,
- accessToken: process.env.TOKEN,
+	url: process.env.URL,
+	accessToken: process.env.TOKEN,
 });
 
 // Import Hashtag
 const hashtag = process.env.HASHTAG;
 
 // initialize jsonData array
-let jsonData = 
- [],
- obj;
+let jsonData = [],
+		obj;
+
+
+const jsonDataHashtag = [{"hashtag": hashtag}];
+
+function writeHashtagJS(){
+    const promiseWriteFile = new Promise((resolve, reject) => {
+        fs.writeFile(filepathhashtagenv, JSON.stringify(jsonDataHashtag), {flags:'a'}, function(err, jsonDataHashtag){
+            if (err ) {
+                console.log('Error writing file', err)
+            } else {
+                resolve(jsonDataHashtag);
+                // clear jsonData array
+                console.log('Successfully wrote hashtag file')
+            }
+        });
+    }).catch(err => console.log(err)); 
+}
+
 
 // FIXME: this is crap, but it works for now.
 // initial push to array to prevent crashes
 function initialPush() {
     obj = {
         "tootID": "0",
-        "boosted": true
+        "boosted": true,
+        "url": "https://mastodon.social",
+        "username": "user"
     };
     jsonData.push(obj);
 }
@@ -48,7 +70,6 @@ function startBoosting() {
         const promiseReceiveHashtag = masto.v1.timelines.listHashtag(hashtag);
         if (promiseReceiveHashtag) {
             resolve(promiseReceiveHashtag);
-            return promiseReceiveHashtag;
         } else {
             reject("Error");
         }
@@ -60,14 +81,19 @@ function startBoosting() {
         for (let i = 0; i < promiseReceiveHashtag.length; i++) {     
             //create tootID and id for json
             let tootID = promiseReceiveHashtag[i].id;
+            let url = promiseReceiveHashtag[i].uri;
+            let username = promiseReceiveHashtag[i].account.username;
+
+            //console.log(promiseReceiveHashtag[i].uri);
             // create a JSON object
             obj = {};
-            obj["tootID"] = tootID;
-            obj["boosted"] = false;
+            obj['tootID'] = tootID;
+            obj['boosted'] = false;
+            obj['url'] = url;
+            obj['username'] = username;
 
             // FIXME: this is crap, but it works for now.
-            // remove initialPush() from array if there 
-	    // is more that single entry in array
+            // remove initialPush() from array if there is more that single entry in array
             if (jsonData.length > 1 && jsonData[i].tootID == 0) {
                 jsonData.splice(0, 1);
             }
@@ -106,30 +132,29 @@ function startBoosting() {
             }
         }
     }).finally(() => {
-        console.log("Search finished. Everything is boosted. 
-		    Start again in 20 seconds. Happy tooting.");
+        console.log("Search finished. Everything is boosted. Start again in 20 seconds. Happy tooting.");
     });
 };
 
 // write toots to json file
 function writeTootsJS(){
     const promiseWriteFile = new Promise((resolve, reject) => {
-        fs.writeFile(filepathenv, JSON.stringify(jsonData), 
-		     {flags:"a"}, function(err, jsonData){
+        fs.writeFile(filepathenv, JSON.stringify(jsonData), {flags:'a'}, function(err, jsonData){
             if (err ) {
-                console.log("Error writing file", err)
+                console.log('Error writing file', err)
             } else {
                 resolve(jsonData);
                 // clear jsonData array
-                console.log("Successfully wrote file")
+                console.log('Successfully wrote file')
             }
         });
     }).catch(err => console.log(err)); 
 }
-
+/*
 // read toots from json file
 function readTootsJS(){
     const promiseReceiveFile = new Promise((resolve, reject) => {
+        fs.readFile(filepathenv, 'utf8', function(err, readTootFile){
             if (err){
                 console.log(err);
             } else {
@@ -143,6 +168,7 @@ function readTootsJS(){
         console.log("File read success.");
     })
 };
+*/
 
 // start script loop
 console.log("Start script in 20s.");
@@ -154,7 +180,8 @@ function boosting() {
 	// start search
 	startBoosting();
     writeTootsJS();
-    readTootsJS();
+    writeHashtagJS();
+    //readTootsJS();
   };
 
 // set interval to run script every 20 seconds
