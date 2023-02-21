@@ -61,16 +61,19 @@ fetch("toots.json")
                 let outAvatar = "";
                 const firstPartOftoots = slicedTootArray[i];
                 firstPartOftoots.forEach((card) => {
+                    let readableDate = new Date(card.createdAt);
+                    readableDate.toDateString();
                     outAvatar += `
                     <div class="tile is-parent">
-                        <article class="tile is-child box">
-                            <p class="title">Boosted Toots</p>
+                        <article class="tile is-child box is-success">
+                            <p class="title">Boosted Toot</p>
                             <p class="subtitle">${card.tootID}</p>
                             <figure class="image is-128x128">
                                 <img class="is-rounded" src="${card.avatarStatic}">
                             </figure>
                             <div class="content">
-                                <p>${card.createdAt}</p>
+                                <p>${readableDate}</p>
+                                <p>${card.content}</p>
                             </div>
                         </article>
                     </div>
@@ -93,16 +96,19 @@ fetch("toots.json")
                 let outAvatar = "";
                 const firstPartOftoots = slicedTootArray[i];
                 firstPartOftoots.forEach((card) => {
+                    let readableDate = new Date(card.createdAt);
+                    readableDate.toDateString();
                     outAvatar += `
                     <div class="tile is-parent">
-                        <article class="tile is-child box">
-                            <p class="title">Boosted Toots</p>
+                        <article class="tile is-child box is-success">
+                            <p class="title">Boosted Toot</p>
                             <p class="subtitle">${card.tootID}</p>
                             <figure class="image is-128x128">
                                 <img class="is-rounded" src="${card.avatarStatic}">
                             </figure>
                             <div class="content">
-                                <p>${card.createdAt}</p>
+                                <p>${readableDate}</p>
+                                <p>${card.content}</p>
                             </div>
                         </article>
                     </div>
@@ -125,16 +131,19 @@ fetch("toots.json")
                 let outAvatar = "";
                 const firstPartOftoots = slicedTootArray[i];
                 firstPartOftoots.forEach((card) => {
+                    let readableDate = new Date(card.createdAt);
+                    readableDate.toDateString();
                     outAvatar += `
                     <div class="tile is-parent">
-                        <article class="tile is-child box">
-                            <p class="title">Boosted Toots</p>
+                        <article class="tile is-child box is-success">
+                            <p class="title">Boosted Toot</p>
                             <p class="subtitle">${card.tootID}</p>
                             <figure class="image is-128x128">
                                 <img class="is-rounded" src="${card.avatarStatic}">
                             </figure>
                             <div class="content">
-                                <p>${card.createdAt}</p>
+                                <p>${readableDate}</p>
+                                <p>${card.content}</p>
                             </div>
                         </article>
                     </div>
@@ -157,16 +166,19 @@ fetch("toots.json")
                 let outAvatar = "";
                 const firstPartOftoots = slicedTootArray[i];
                 firstPartOftoots.forEach((card) => {
+                    let readableDate = new Date(card.createdAt);
+                    readableDate.toDateString();
                     outAvatar += `
                     <div class="tile is-parent">
-                        <article class="tile is-child box">
-                            <p class="title">Boosted Toots</p>
+                        <article class="tile is-child box is-success">
+                            <p class="title">Boosted Toot</p>
                             <p class="subtitle">${card.tootID}</p>
                             <figure class="image is-128x128">
                                 <img class="is-rounded" src="${card.avatarStatic}">
                             </figure>
                             <div class="content">
-                                <p>${card.createdAt}</p>
+                                <p>${readableDate}</p>
+                                <p>${card.content}</p>
                             </div>
                         </article>
                     </div>
@@ -189,16 +201,19 @@ fetch("toots.json")
                 let outAvatar = "";
                 const firstPartOftoots = slicedTootArray[i];
                 firstPartOftoots.forEach((card) => {
+                    let readableDate = new Date(card.createdAt);
+                    readableDate.toDateString();
                     outAvatar += `
                     <div class="tile is-parent">
-                        <article class="tile is-child box">
-                            <p class="title">Boosted Toots</p>
+                        <article class="tile is-child box is-success">
+                            <p class="title">Boosted Toot</p>
                             <p class="subtitle">${card.tootID}</p>
                             <figure class="image is-128x128">
                                 <img class="is-rounded" src="${card.avatarStatic}">
                             </figure>
                             <div class="content">
-                                <p>${card.createdAt}</p>
+                                <p>${readableDate}</p>
+                                <p>${card.content}</p>
                             </div>
                         </article>
                     </div>
@@ -267,4 +282,4 @@ function buttonCards() {
 
 setInterval(function() {
     lustig();
-    }, 2000);
+    }, 10000);
