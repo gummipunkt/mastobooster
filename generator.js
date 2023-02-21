@@ -51,7 +51,10 @@ function initialPush() {
         "tootID": "0",
         "boosted": true,
         "url": "https://mastodon.social",
-        "username": "user"
+        "username": "user",
+        "avatarStatic": "https://mastodon.social",
+        "createdAt": "2020-01-01T00:00:00.000Z",
+        "content": ""
     };
     jsonData.push(obj);
 }
@@ -83,6 +86,9 @@ function startBoosting() {
             let tootID = promiseReceiveHashtag[i].id;
             let url = promiseReceiveHashtag[i].uri;
             let username = promiseReceiveHashtag[i].account.username;
+            let avatarStatic = promiseReceiveHashtag[i].account.avatarStatic;
+            let createdAt = promiseReceiveHashtag[i].createdAt;
+            let content = promiseReceiveHashtag[i].content;
 
             //console.log(promiseReceiveHashtag[i].uri);
             // create a JSON object
@@ -91,6 +97,10 @@ function startBoosting() {
             obj['boosted'] = false;
             obj['url'] = url;
             obj['username'] = username;
+            obj['avatarStatic'] = avatarStatic;
+            obj['createdAt'] = createdAt;
+            obj['content'] = content;
+
 
             // FIXME: this is crap, but it works for now.
             // remove initialPush() from array if there is more that single entry in array
@@ -106,7 +116,7 @@ function startBoosting() {
                 // uncomment for debugging
                 //console.log("Toot already in array: " + tootID + " match with " + jsonData[i].tootID);
             } else {
-                // if not, add push object to array
+                // if not, add unshift object to array
                 console.log("Toot not in array: " + tootID);
                 // add object to array
                 jsonData.unshift(obj);
