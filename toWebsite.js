@@ -248,12 +248,18 @@ fetch("toots.json")
     });
 }
 
+function hideTable() {
+    document.getElementById("table").style.display = "none";
+}
+
+function hideCards() {
+    document.getElementById("cardsDiv").style.display = "none";
+}
+
 function buttonTable() {
     document.getElementById("buttonTable").innerHTML =
     `
-    <div id="reload">
-    The Toots below will refresh after <span id="cnt" style="color:red;">15</span> seconds.
-    <div id="table">
+    <div id="table" style="display:block">
         <table class="table is-striped is-narrow is-hoverable is-fullwidth" id="cnt">
             <thead>
                 <tr>
@@ -269,12 +275,14 @@ function buttonTable() {
     </div>
     </div>
     `;
+    hideCards();
 };
 
 function buttonCards() {
     document.getElementById("buttonCards").innerHTML =
     `
-    <div class="tile is-ancestor" id="avatarStatic1">
+    <div id="cardsDiv" style="display:block">
+        <div class="tile is-ancestor" id="avatarStatic1">
         </div>
         <div class="tile is-ancestor" id="avatarStatic2">
         </div>
@@ -283,8 +291,10 @@ function buttonCards() {
         <div class="tile is-ancestor" id="avatarStatic4">
         </div>
         <div class="tile is-ancestor" id="avatarStatic5">
+        </div>
     </div>
     `;
+    hideTable();
 };
 
 
