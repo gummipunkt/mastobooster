@@ -35,7 +35,11 @@ function lustig(){
                     <td>${x}</td>
                 </tr>`;
                 });
-            placeholder.innerHTML = out;
+            if (placeholder != null) {
+                placeholder.innerHTML = out;
+            } else {
+                return;
+            };
         })
     .catch(function(error){
         console.log(error);
@@ -79,7 +83,11 @@ fetch("toots.json")
                     </div>
                     `;
                 });
-                placeholderAvatar.innerHTML = outAvatar;
+                if (placeholderAvatar != null) {
+                    placeholderAvatar.innerHTML = outAvatar;
+                } else {
+                    return;
+                };
             } else {
                 let placeholderAvatar = document.querySelector("#avatarStatic1");
                 let outAvatar = "";
