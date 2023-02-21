@@ -43,17 +43,20 @@
             <div class="content has-text-centered">
             <h1 id="hashtag-output" class="title"></h1>
             </div>
-            <table class="table is-striped is-narrow is-hoverable is-fullwidth">
-                <thead>
-                    <tr>
-                        <th>TootID</th>
-                        <th>Username</th>
-                        <th>Boosted</th>
-                    </tr>
-                </thead>
-                <tbody id="data-output">
-                </tbody>
-            </table>
+            <div class="content">
+              <div class="buttons is-centered">
+                <button class="button is-link is-outlined" onclick="buttonTable()">Table</button>
+                <button class="button is-link is-outlined" onclick="buttonCards()">Cards</button>
+              </div>
+            </div>
+            <section class="section is-medium" id="buttonTable">
+
+            </section>
+
+            <section class="section is-medium" id="buttonCards">
+              
+            </section>
+
             <footer class="footer">
               <div class="container">
                 <div class="content has-text-centered">
@@ -71,10 +74,7 @@
             </footer>
         </div>
       </div>
-    
-
-
-
     <script src="toWebsite.js" type="module"> </script>
+    <script src="toWebsite.js"></script>
 </body>
 </html>
