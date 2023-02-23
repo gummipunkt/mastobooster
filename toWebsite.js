@@ -1,4 +1,6 @@
 let x = "";
+let countRows = 0;
+
 
 //fetch hashtag from array
 fetch("hashtag.json")
@@ -13,7 +15,7 @@ fetch("hashtag.json")
 );
 
 // fetch toots array for table
-function generateTable(){
+async function generateTable(){
     fetch("toots.json")
         .then(function(response){
             return response.json();
@@ -54,7 +56,7 @@ function generateTable(){
 );
 }
 
-function generateCards(){
+async function generateCards(){
 //fetch toots for cards
 fetch("toots.json")
     .then(function(response){
@@ -71,10 +73,12 @@ fetch("toots.json")
         toots.forEach((x,y,z) => !(y % 4) ? slicedTootArray.push(z.slice(y, y + 4)) : '');
         // for loop to extract data out of sliced array
         for (let i = 0; i < slicedTootArray.length; i++) {
-            // if sliced array is undefined(empty) create first row
-            if (slicedTootArray[i] != undefined && i == 0) {
+            countRows = i;
+            // if sliced array is undefined(empty) create row
+            //if (slicedTootArray[i] != undefined && i == countRows) {
+                slicedTootArray[i] != undefined && i == countRows
                 //create avatar
-                let placeholderAvatar = document.querySelector("#avatarStatic1");
+                let placeholderAvatar = document.querySelector(`#avatarStatic${i}`);
                 let outAvatar = "";
                 //create first row with cards
                 const firstPartOftoots = slicedTootArray[i];
@@ -84,8 +88,8 @@ fetch("toots.json")
                     let readableDate = new Date(card.createdAt);
                     readableDate.toDateString();
                     outAvatar += `
-                    <div class="tile is-parent">
-                        <article class="tile is-child box box-mixin is-success">
+                    <div class="tile is-parent a-cards">
+                        <article class="tile is-child box box-mixin a-mixin">
                             <p class="title">Boosted Toot</p>
                             <p class="subtitle">${card.tootID}</p>
                             <figure class="image is-128x128">
@@ -98,6 +102,7 @@ fetch("toots.json")
                         </article>
                     </div>
                     `;
+                    return i;
                 });
                 // if cards are active, show cards
                 if (placeholderAvatar != null) {
@@ -106,161 +111,7 @@ fetch("toots.json")
                     //if cards not active, show nothing
                     return;
                 };
-            } else {
-                let placeholderAvatar = document.querySelector("#avatarStatic1");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    outAvatar += `
-                    <div class="tile is-parent">
-                    </div>
-                    `;
-                });
             }
-            if (slicedTootArray[i] != undefined && i == 1) {
-                let placeholderAvatar = document.querySelector("#avatarStatic2");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    let readableDate = new Date(card.createdAt);
-                    readableDate.toDateString();
-                    outAvatar += `
-                    <div class="tile is-parent">
-                        <article class="tile is-child box box-mixin is-success">
-                            <p class="title">Boosted Toot</p>
-                            <p class="subtitle">${card.tootID}</p>
-                            <figure class="image is-128x128">
-                                <img class="is-rounded" src="${card.avatarStatic}">
-                            </figure>
-                            <div class="content">
-                                <p>${readableDate}</p>
-                                <p>${card.content}</p>
-                            </div>
-                        </article>
-                    </div>
-                    `;
-                });
-                placeholderAvatar.innerHTML = outAvatar;
-            } else {
-                let placeholderAvatar = document.querySelector("#avatarStatic2");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    outAvatar += `
-                    <div class="tile is-parent">
-                    </div>
-                    `;
-                });
-            }
-            if (slicedTootArray[i] != undefined && i == 2) {
-                let placeholderAvatar = document.querySelector("#avatarStatic3");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    let readableDate = new Date(card.createdAt);
-                    readableDate.toDateString();
-                    outAvatar += `
-                    <div class="tile is-parent">
-                        <article class="tile is-child box box-mixin is-success">
-                            <p class="title">Boosted Toot</p>
-                            <p class="subtitle">${card.tootID}</p>
-                            <figure class="image is-128x128">
-                                <img class="is-rounded" src="${card.avatarStatic}">
-                            </figure>
-                            <div class="content">
-                                <p>${readableDate}</p>
-                                <p>${card.content}</p>
-                            </div>
-                        </article>
-                    </div>
-                    `;
-                });
-                placeholderAvatar.innerHTML = outAvatar;
-            } else {
-                let placeholderAvatar = document.querySelector("#avatarStatic3");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    outAvatar += `
-                    <div class="tile is-parent">
-                    </div>
-                    `;
-                });
-            }
-            if (slicedTootArray[i] != undefined && i == 3) {
-                let placeholderAvatar = document.querySelector("#avatarStatic4");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-
-                    let readableDate = new Date(card.createdAt);
-                    readableDate.toDateString();
-                    outAvatar += `
-                    <div class="tile is-parent">
-                    <article class="tile is-child box box-mixin is-success">
-                    <p class="title">Boosted Toot</p>
-                    <p class="subtitle">${card.tootID}</p>
-                    <figure class="image is-128x128">
-                        <img class="is-rounded" src="${card.avatarStatic}">
-                    </figure>
-                    <div class="content">
-                        <p>${readableDate}</p>
-                        <p>${card.content}</p>
-                    </div>
-                </article>
-                    </div>
-                    `;
-                });
-                placeholderAvatar.innerHTML = outAvatar;
-            } else {
-                let placeholderAvatar = document.querySelector("#avatarStatic4");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    outAvatar += `
-                    <div class="tile is-parent">
-                    </div>
-                    `;
-                });
-            }
-            if (slicedTootArray[i] != undefined && i == 4) {
-                let placeholderAvatar = document.querySelector("#avatarStatic5");
-                    let outAvatar = "";
-    const firstPartOftoots = slicedTootArray[i];
-    firstPartOftoots.forEach((card) => {
-        let readableDate = new Date(card.createdAt);
-        readableDate.toDateString();
-        outAvatar += `
-        <div class="tile is-parent">
-            <article class="tile is-child box box-mixin is-success">
-                <p class="title">Boosted Toot</p>
-                <p class="subtitle">${card.tootID}</p>
-                <figure class="image is-128x128">
-                    <img class="is-rounded" src="${card.avatarStatic}">
-                </figure>
-                <div class="content">
-                    <p>${readableDate}</p>
-                    <p>${card.content}</p>
-                </div>
-            </article>
-        </div>
-        `;
-    });
-    placeholderAvatar.innerHTML = outAvatar;
-            } else {
-                let placeholderAvatar = document.querySelector("#avatarStatic5");
-                let outAvatar = "";
-                const firstPartOftoots = slicedTootArray[i];
-                firstPartOftoots.forEach((card) => {
-                    outAvatar += `
-                    <div class="tile is-parent">
-                    </div>
-                    `;
-                });
-            }
-        }
-
-        
     })
     .catch(function(error){
         console.log(error);
@@ -269,20 +120,32 @@ fetch("toots.json")
 
 // hideTable when Cards button is active
 function hideTable() {
-        document.getElementById("table").style.display = "none";
+    while (document.getElementById("table").style.display === null) {
+        // ...
+        if (document.getElementById("table").style.display != null) {            
+            break;
+        } 
+    }
+    document.getElementById("table").style.display = "none";
 }
 
 // hideCards when Table button is active
 function hideCards() {
-        document.getElementById("cardsDiv").style.display = "none";
+    while (document.getElementById("cardsDiv").style.display === null) {
+        // ...
+        if (document.getElementById("cardsDiv").style.display != null) {            
+            break;
+        } 
+    }
+    document.getElementById("cardsDiv").style.display = "none";
 }
 
 // show table when Table button is active
 function buttonTable() {
     document.getElementById("buttonTable").innerHTML =
     `
-    <section class="section is-medium">
-        <div id="table" style="display:block">
+    <section class="section is-medium" id="table" >
+        <div style="display:block">
             <table class="table is-striped is-narrow is-hoverable is-fullwidth" id="cnt">
                 <thead>
                     <tr>
@@ -306,8 +169,10 @@ function buttonTable() {
 function buttonCards() {
     document.getElementById("buttonCards").innerHTML =
     `
-    <section class="section is-medium">
-        <div id="cardsDiv" style="display:block">
+    <section class="section is-medium" id="cardsDiv" >
+        <div style="display:block">
+            <div class="tile is-ancestor" id="avatarStatic0">
+            </div>
             <div class="tile is-ancestor" id="avatarStatic1">
             </div>
             <div class="tile is-ancestor" id="avatarStatic2">
@@ -315,8 +180,6 @@ function buttonCards() {
             <div class="tile is-ancestor" id="avatarStatic3">
             </div>
             <div class="tile is-ancestor" id="avatarStatic4">
-            </div>
-            <div class="tile is-ancestor" id="avatarStatic5">
             </div>
         </div>
     </section>
