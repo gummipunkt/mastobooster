@@ -7,7 +7,9 @@
 
 ## Demo
 [masto.wltr.pw](https://masto.wltr.pw)
+
 [My Mastodon Instance](https://wltr.pw)
+
 ## Installation
 
 - **Install NodeJS and npm** 
@@ -38,9 +40,7 @@ If you want, you can use PM2 to run index.js forever
        oldest ones
  - [ ]  support multiple hashtags
  - [ ]  Improve website
-	 - [ ] Add Cards
-	 - [ ] Add Toot Content
-	 - [ ] Add Time
+	 - [ ] Timestamp Cards & Tables
  - [ ] Add Admin Interface
 
 ## Done
