@@ -29,10 +29,10 @@
 		- replace *.domain.tld 
 		- use certbot (or certbot --nginx) to generate your cert
 - **Start Node** 
-	- `$ node generator.js`
+	- `$ node app.js`
 
 If you want, you can use PM2 to run index.js forever
-	- `$ pm2 start generator.js --name mastobooser`
+	- `$ pm2 start app.js --name mastobooser`
 
 ## Todo
 
