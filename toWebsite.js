@@ -10,7 +10,7 @@ fetch("hashtag.json")
     // set hashtag for website
     .then(function(hashtags){
         let placeholderHashtag = document.querySelector("#hashtag-output");
-        placeholderHashtag.innerHTML = `<h1>Hashtag: #${hashtags[0].hashtag}</h1>`;
+        placeholderHashtag.innerHTML = `<h2 class="subtitle is-3">Hashtag: #${hashtags[0].hashtag}</h2>`;
     }
 );
 
