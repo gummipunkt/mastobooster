@@ -5,6 +5,9 @@
 
 **Boost your favorite hashtag on Mastodon.**
 
+## Demo
+![masto.wltr.pw](https://masto.wltr.pw)
+![My Mastodon Instance](https://wltr.pw)
 ## Installation
 
 - **Install NodeJS and npm** 
